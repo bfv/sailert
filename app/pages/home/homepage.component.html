@@ -1,0 +1,27 @@
+<StackLayout class="main">
+
+    <!--<StackLayout orientation="horizontal" width="100%">
+        <Label text="Latitude:     "></Label>
+        <Label [text]="currentLocation.latitude | latitudedegrees: 'hmin:3'" #latfield></Label>
+    </StackLayout>-->
+
+    <!--<StackLayout orientation="horizontal">
+        <Label text="Longitude:  "></Label>
+        <Label [text]="currentLocation.longitude | longitudedegrees: 'hmin:3'"></Label>
+    </StackLayout>-->
+    <!--<Button text="Get Position" (tap)="getCurrentPosition()"></Button>-->
+
+    <StackLayout>
+        <StackLayout orientation="horizontal">
+            <speed></speed>
+            <!--<StackLayout class="hr-dark" orientation="vertical"></StackLayout>-->
+            <course></course>
+        </StackLayout>
+        <StackLayout class="hr-dark" orientation="horizontal"></StackLayout>
+        <position></position>
+        <StackLayout class="hr-dark" orientation="horizontal"></StackLayout>
+    </StackLayout>
+    <Button text="START" (tap)="start()"></Button>
+    <Button text="STOP" (tap)="stop()"></Button>
+    <Switch [checked]="running"></Switch>
+</StackLayout>

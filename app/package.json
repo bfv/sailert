@@ -1,0 +1,46 @@
+{
+    "private": false,
+    "nativescript": {
+        "id": "io.bfv.sailert"
+    },
+    "name": "sailert",
+    "main": "main.js",
+    "version": "2.4.3",
+    "author": "Bonco Oostermeyer",
+    "description": "Sailert",
+    "license": "MIT",
+    "keywords": [
+        "angular",
+        "nativescript",
+        "{N}",
+        "tns"
+    ],
+    "repository": {
+        "type": "git",
+        "url": "git://github.com/bfv/sailert"
+    },
+    "homepage": "github.com/bfv/sailert",
+    "android": {
+        "v8Flags": "--expose_gc"
+    },
+    "dependencies": {
+        "nativescript-theme-core": "^0.2.1",
+        "nativescript-angular": "1.2.0",
+        "@angular/core": "2.2.1",
+        "@angular/common": "2.2.1",
+        "@angular/compiler": "2.2.1",
+        "@angular/http": "2.2.1",
+        "@angular/platform-browser": "2.2.1",
+        "@angular/platform-browser-dynamic": "2.2.1",
+        "@angular/forms": "2.2.1",
+        "@angular/router": "3.2.1",
+        "rxjs": "5.0.0-beta.12",
+        "reflect-metadata": "~0.1.8"
+    },
+    "devDependencies": {
+        "zone.js": "~0.6.21",
+        "typescript": "~2.0.10",
+        "nativescript-dev-typescript": "^0.3.2",
+        "nativescript-dev-android-snapshot": "^0.*.*"
+    }
+}
