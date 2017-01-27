@@ -1,24 +1,33 @@
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { AppState } from './../store/appstate';
-import { Observable } from 'rxjs';
+import { Subject } from 'rxjs';
 import { SpeedActions } from './../store/speed.reducer';
 import { CourseActions } from './../store/course.reducer';
 import { PositionActions } from './../store/position.reducer';
 
 import * as geolocation from 'nativescript-geolocation';
 import { Accuracy } from 'ui/enums';
+import { Location } from './../shared/location';
+
 
 @Injectable()
 export class LocationService {
 
     private watchId: number = -1;
+    private location$: Subject<Location>;
 
     constructor(private store: Store<AppState>) {
+
         console.log('geolocation.isEnabled()', geolocation.isEnabled());
         if (!geolocation.isEnabled()) {
             geolocation.enableLocationRequest();
         }
+
+        this.location$ = new Subject<Location>();
+        this.location$.subscribe(location => {
+            this.updateLocationData(location);
+        });
     }
 
     startLocationReadings() {
@@ -28,9 +37,17 @@ export class LocationService {
             return;
         }
 
+        // turn watchLocation into location$ Obeservable
         this.watchId = geolocation.watchLocation(
             location => {
-                this.updateLocationData(location);
+                //this.updateLocationData(location);
+                this.location$.next({
+                    latitude: location.latitude,
+                    longitude: location.longitude,
+                    speed: location.speed,
+                    course: location.direction,
+                    time: new Date(Date.now)
+                });
             },
             error => {
                 console.log('ERROR: ', JSON.stringify(error));
@@ -52,9 +69,9 @@ export class LocationService {
         }
     }
 
-    updateLocationData(location) {
+    updateLocationData(location: Location) {
 
-        console.log("updateLocationData, current heading: ", location.direction);
+        console.log("updateLocationData, current heading: ", location.course);
 
         this.store.dispatch({
             type: SpeedActions.SET,
@@ -63,7 +80,7 @@ export class LocationService {
 
         this.store.dispatch({
             type: CourseActions.SET,
-            payload: location.direction
+            payload: location.course
         });
 
         this.store.dispatch({
