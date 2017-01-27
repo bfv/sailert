@@ -26,7 +26,7 @@ export class CourseComponent implements OnInit {
         this.courseObservable
             .subscribe(v => {
                 this.course = <number>v;
-                this.courseReading = this.course.toFixed(1) + '\u00B0';
+                this.courseReading = this.course.toFixed(0) + '\u00B0';
                 this.ref.detectChanges();
             });
     }
