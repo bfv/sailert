@@ -11,7 +11,7 @@ import { LocationService } from './../../services/location.service';
 export class HomepageComponent implements OnInit {
 
     public running: boolean = false;
-
+    public btnText: string = 'start';
 
     constructor(private locationService: LocationService) {
 
@@ -22,12 +22,15 @@ export class HomepageComponent implements OnInit {
     }
 
     start(): void {
-        this.locationService.startLocationReadings();
-        this.running = true;
+        if (!this.running) {
+            this.locationService.startLocationReadings();
+        }
+        else {
+            this.locationService.stopLocationReadings();
+        }
+
+        this.running = !this.running;
+        this.btnText = this.running ? 'STOP' : 'START';
     }
 
-    stop() {
-        this.locationService.stopLocationReadings();
-        this.running = false;
-    }
 }
