@@ -1,5 +1,8 @@
-<StackLayout width="55%">
+<StackLayout width="60%">
     <Border>
-        <label [text]="speedReading" class="text"></label>
+        <StackLayout orientation="horizontal">
+            <label [text]="speedReading" id="speed" [ngClass]="speedClasses" #speedField></label>
+            <label [text]="unitsReading" class="text units"></label>
+        </StackLayout>
     </Border>
 </StackLayout>

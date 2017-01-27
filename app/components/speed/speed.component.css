@@ -7,6 +7,21 @@ Border {
     border-bottom-width: 0;
     border-left-width: 0;
     margin: 0px;
-    padding-left: 4px;
-    
+    padding-left: 4px;  
+}
+
+.units {
+    font-size: 20pt;
+}
+
+.kt {
+    width: 80%;
+}
+
+.kmh {
+    width: 65%;
+}
+
+.ms {
+    width: 75%;
 }
