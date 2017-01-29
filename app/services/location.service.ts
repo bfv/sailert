@@ -5,11 +5,13 @@ import { Subject } from 'rxjs';
 import { SpeedActions } from './../store/speed.reducer';
 import { CourseActions } from './../store/course.reducer';
 import { PositionActions } from './../store/position.reducer';
+import { TracklogActions } from './../store/tracklog.reducer';
 
 import * as geolocation from 'nativescript-geolocation';
 import { Accuracy } from 'ui/enums';
 import { Location } from './../shared/location';
-
+import { Position } from './../shared/position';
+import { TrackPoint } from './../shared/trackpoint';
 
 @Injectable()
 export class LocationService {
@@ -27,6 +29,7 @@ export class LocationService {
         this.location$ = new Subject<Location>();
         this.location$.subscribe(location => {
             this.updateLocationData(location);
+            this.updateTracklog(location);
         });
     }
 
@@ -85,11 +88,31 @@ export class LocationService {
 
         this.store.dispatch({
             type: PositionActions.SET,
-            payload: {
-                latitude: location.latitude,
-                longitude: location.longitude
+            payload: this.getPosition(location)
+        });
+
+    }
+
+    updateTracklog(location) {
+
+        this.store.dispatch({
+            type: TracklogActions.ADD,
+            payload: <TrackPoint>{
+                position: this.getPosition(location),
+                time: new Date(Date.now)
             }
         });
+
+    }
+
+    private getPosition(location): Position {
+
+        let position: Position = {
+            latitude: location.latitude,
+            longitude: location.longitude
+        };
+
+        return position;
     }
 
     resetLocationData() {
