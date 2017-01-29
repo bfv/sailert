@@ -10,6 +10,7 @@ import { StoreModule } from '@ngrx/store';
 import { speedReducer } from './store/speed.reducer';
 import { courseReducer } from './store/course.reducer';
 import { positionReducer } from './store/position.reducer';
+import { tracklogReducer } from './store/tracklog.reducer';
 
 import { AppComponent } from "./app.component";
 
@@ -39,7 +40,8 @@ import { LocationService } from './services/location.service';
         StoreModule.provideStore({
             speed: speedReducer,
             course: courseReducer,
-            position: positionReducer
+            position: positionReducer,
+            tracklog: tracklogReducer,
         }),
     ],
     schemas: [NO_ERRORS_SCHEMA],
