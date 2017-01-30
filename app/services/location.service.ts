@@ -21,7 +21,6 @@ export class LocationService {
 
     constructor(private store: Store<AppState>) {
 
-        console.log('geolocation.isEnabled()', geolocation.isEnabled());
         if (!geolocation.isEnabled()) {
             geolocation.enableLocationRequest();
         }
@@ -49,7 +48,7 @@ export class LocationService {
                     longitude: location.longitude,
                     speed: location.speed,
                     course: location.direction,
-                    time: new Date(Date.now)
+                    time: location.timestamp
                 });
             },
             error => {
@@ -99,7 +98,7 @@ export class LocationService {
             type: TracklogActions.ADD,
             payload: <TrackPoint>{
                 position: this.getPosition(location),
-                time: new Date(Date.now)
+                time: new Date(Date.now())
             }
         });
 

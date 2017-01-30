@@ -6,7 +6,7 @@ export class TracklogActions {
     static RESET: string = '[tracklog] reset';
 }
 
-export function tracklogReducer(state: TrackPoint[], action: Action) {
+export function tracklogReducer(state: TrackPoint[] = [], action: Action) {
 
     switch (action.type) {
 
