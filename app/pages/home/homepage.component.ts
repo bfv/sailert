@@ -1,5 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { LocationService } from './../../services/location.service';
+import { Store } from '@ngrx/store';
+import { AppState } from './../../store/appstate';
+import { TrackPoint } from './../../shared/trackpoint';
+import { Observable } from 'rxjs';
+import { TracklogActions } from './../../store/tracklog.reducer';
 
 
 @Component({
@@ -12,13 +17,20 @@ export class HomepageComponent implements OnInit {
 
     public running: boolean = false;
     public btnText: string = 'start';
+    public tracklog$: Observable<TrackPoint[]>;
+    public tracklog: TrackPoint[] = [];
 
-    constructor(private locationService: LocationService) {
+    constructor(private locationService: LocationService, private store: Store<AppState>, private ref: ChangeDetectorRef) {
 
     }
 
     ngOnInit() {
-        // placeholder for now
+        this.tracklog$ = <Observable<TrackPoint[]>>this.store.select('tracklog');
+        this.tracklog$.subscribe(track => {
+            this.tracklog = track;
+            this.ref.detectChanges();
+        });
+
     }
 
     start(): void {
@@ -31,6 +43,13 @@ export class HomepageComponent implements OnInit {
 
         this.running = !this.running;
         this.btnText = this.running ? 'STOP' : 'START';
+    }
+
+    tap() {
+        this.store.dispatch({
+            type: TracklogActions.RESET,
+            payload: null
+        });
     }
 
 }
