@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { AppState } from './../store/appstate';
-import { Subject } from 'rxjs';
+import { Subject, Observable } from 'rxjs';
 import { SpeedActions } from './../store/speed.reducer';
 import { CourseActions } from './../store/course.reducer';
 import { PositionActions } from './../store/position.reducer';
@@ -28,8 +28,16 @@ export class LocationService {
         this.location$ = new Subject<Location>();
         this.location$.subscribe(location => {
             this.updateLocationData(location);
-            this.updateTracklog(location);
+
         });
+
+        // Observable.interval(5000)
+        this.location$
+            .throttleTime(5000)
+            .subscribe(location => {
+                this.updateTracklog(location);
+            });
+
     }
 
     startLocationReadings() {
@@ -72,8 +80,6 @@ export class LocationService {
     }
 
     updateLocationData(location: Location) {
-
-        console.log("updateLocationData, current heading: ", location.course);
 
         this.store.dispatch({
             type: SpeedActions.SET,
