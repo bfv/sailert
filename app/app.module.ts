@@ -21,6 +21,7 @@ import { SpeedComponent } from './components/speed/speed.component';
 import { CourseComponent } from './components/course/course.component';
 import { PositionComponent } from './components/position/position.component';
 import { LocationService } from './services/location.service';
+import { TracklogViewerComponent } from './components/tracklog-viewer/tracklog-viewer.component';
 
 @NgModule({
     declarations: [
@@ -30,7 +31,8 @@ import { LocationService } from './services/location.service';
         LongitudeDegreesPipe,
         SpeedComponent,
         CourseComponent,
-        PositionComponent
+        PositionComponent,
+        TracklogViewerComponent,
     ],
     bootstrap: [AppComponent],
     imports: [

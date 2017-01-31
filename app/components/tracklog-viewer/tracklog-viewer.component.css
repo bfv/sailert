@@ -1,0 +1,18 @@
+.odd {
+    background-color: #555555;
+    color: white;
+}
+
+.even {
+    background-color: #aaaaaa;
+    color: black;
+}
+
+.fixedfont {
+    font-family: Courier New, Courier, monospace;
+    font-size: 12pt;
+}
+
+.m10r {
+    margin-right: 50px;
+}

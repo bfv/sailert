@@ -1,0 +1,14 @@
+<StackLayout>
+    <Label text="listview"></Label>
+    <ListView [items]="tracklog">
+        <template let-item="item" let-i="index" let-odd="odd" let-even="even">
+            <StackLayout [class.odd]="odd" [class.even]="even" orientation="horizontal">
+                <Label [text]="item.time | date:'hh:mm:ss'" class="fixedfont m10r"></Label>
+                <!--<Label text="  "></Label>-->
+                <Label [text]="item.position.latitude | latitudedegrees: 'hmin:3'" class="fixedfont m10r"></Label>
+                <!--<Label text="  "></Label>-->
+                <Label [text]="item.position.longitude | longitudedegrees: 'hmin:3'" class="fixedfont"></Label>
+            </StackLayout>
+        </template>
+    </ListView>
+</StackLayout>
