@@ -1,9 +1,9 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, ChangeDetectorRef } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { AppState } from './../../store/appstate';
 import { Observable } from 'rxjs';
 import { SpeedActions } from './../../store/speed.reducer';
-import { ChangeDetectorRef } from '@angular/core';
+
 
 @Component({
     moduleId: module.id,
