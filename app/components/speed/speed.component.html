@@ -1,7 +1,7 @@
-<StackLayout width="60%">
+<StackLayout width="60%" (tap)="onTap()">
     <Border>
         <StackLayout orientation="horizontal">
-            <label [text]="speedReading" id="speed" [ngClass]="speedClasses" #speedField></label>
+            <label [text]="speedReading" [ngClass]="speedClasses"></label>
             <label [text]="unitsReading" class="text units"></label>
         </StackLayout>
     </Border>

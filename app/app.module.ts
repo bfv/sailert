@@ -15,6 +15,7 @@ import { speedReducer } from './store/speed.reducer';
 import { courseReducer } from './store/course.reducer';
 import { positionReducer } from './store/position.reducer';
 import { tracklogReducer } from './store/tracklog.reducer';
+import { settingsReducer } from './store/settings.reducer';
 
 import { AppComponent } from "./app.component";
 
@@ -28,6 +29,7 @@ import { CourseComponent } from './components/course/course.component';
 import { PositionComponent } from './components/position/position.component';
 import { LocationService } from './services/location.service';
 import { TracklogViewerComponent } from './components/tracklog-viewer/tracklog-viewer.component';
+import { SettingsService } from './services/settings.service';
 
 @NgModule({
     declarations: [
@@ -56,6 +58,7 @@ import { TracklogViewerComponent } from './components/tracklog-viewer/tracklog-v
             course: courseReducer,
             position: positionReducer,
             tracklog: tracklogReducer,
+            settings: settingsReducer,
         }),
     ],
     schemas: [NO_ERRORS_SCHEMA],
@@ -65,7 +68,8 @@ import { TracklogViewerComponent } from './components/tracklog-viewer/tracklog-v
     ],
     providers: [
         appRoutingProviders,
-        LocationService
+        LocationService,
+        SettingsService
     ]
 })
 export class AppModule { }
