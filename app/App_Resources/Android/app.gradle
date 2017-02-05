@@ -9,7 +9,7 @@ android {
   defaultConfig {  
     generatedDensities = []
     applicationId = "io.bfv.sailert" 
-    
+    multiDexEnabled true
     //override supported platforms
     // ndk {
     //       abiFilters.clear()
