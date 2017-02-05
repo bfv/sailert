@@ -1,8 +1,8 @@
 <ActionBar title="Sailert" class="action-bar">
     <ActionItem android.systemIcon="ic_menu_sort_by_size" text="open menu" (tap)="openMenu()"></ActionItem>
 </ActionBar>
-<RadSideDrawer #drawer>
-    <StackLayout tkDrawerContent [transition]="sideDrawerTransition">
+<RadSideDrawer #drawerComponent [transition]="sideDrawerTransition">
+    <StackLayout tkDrawerContent class="page">
         <Button text='home' [nsRouterLink]="['/main']" nsRouterLinkActive="active" class="btn"></Button>
         <Button text='settings' [nsRouterLink]="['/main/settings']" nsRouterLinkActive="active" class="btn"></Button>
     </StackLayout>
