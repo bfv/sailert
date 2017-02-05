@@ -7,6 +7,7 @@ import { appRoutingProviders, routing } from './app.routing';
 
 // UI
 import { SIDEDRAWER_DIRECTIVES, } from "nativescript-telerik-ui/sidedrawer/angular";
+import { TNSFontIconModule } from 'nativescript-ngx-fonticon';
 
 // store
 import { StoreModule } from '@ngrx/store';
@@ -47,6 +48,9 @@ import { TracklogViewerComponent } from './components/tracklog-viewer/tracklog-v
         NativeScriptModule,
         NativeScriptRouterModule,
         routing,
+        TNSFontIconModule.forRoot({
+            'fa': 'font-awesome.css'
+        }),
         StoreModule.provideStore({
             speed: speedReducer,
             course: courseReducer,
@@ -57,7 +61,7 @@ import { TracklogViewerComponent } from './components/tracklog-viewer/tracklog-v
     schemas: [NO_ERRORS_SCHEMA],
     exports: [
         NativeScriptModule,
-        NativeScriptRouterModule
+        NativeScriptRouterModule,
     ],
     providers: [
         appRoutingProviders,
