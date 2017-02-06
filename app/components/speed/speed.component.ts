@@ -1,7 +1,7 @@
-import { Component, OnInit, ViewChild, ElementRef, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild, ElementRef, ChangeDetectorRef } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { AppState } from './../../store/appstate';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { SpeedActions } from './../../store/speed.reducer';
 import { AppSettings } from './../../shared/appsettings';
 import { SettingsService } from './../../services/settings.service';
@@ -12,7 +12,7 @@ import { SpeedUnit } from './../../shared/types';
     templateUrl: 'speed.component.html',
     styleUrls: ['../geo.css', 'speed.component.css'],
 })
-export class SpeedComponent implements OnInit {
+export class SpeedComponent implements OnInit, OnDestroy {
 
     private speed: number = 0.0;
     public speedReading: string = '';
@@ -23,13 +23,16 @@ export class SpeedComponent implements OnInit {
     private unitFactor: number;
     public speedClasses: string;    // css classes for the speed field
 
+    private speed$Sub: Subscription;
+    private settings$Sub: Subscription;
+
     constructor(private store: Store<AppState>, private ref: ChangeDetectorRef, private settings: SettingsService) { }
 
     ngOnInit() {
 
         // get the unit setting out of the store
         let settings$ = <Observable<AppSettings>>this.store.select('settings');
-        settings$
+        this.settings$Sub = settings$
             .map(v => v.speedUnits)
             .subscribe(speedUnits => {
                 this.units = speedUnits;
@@ -55,11 +58,16 @@ export class SpeedComponent implements OnInit {
 
         let speed$ = <Observable<number>>this.store.select('speed');
 
-        speed$
+        this.speed$Sub = speed$
             .subscribe(v => {
                 this.speed = v;
                 this.calculateSpeed();
             });
+    }
+
+    ngOnDestroy() {
+        this.settings$Sub.unsubscribe();
+        this.speed$Sub.unsubscribe();
     }
 
     private calculateSpeed() {

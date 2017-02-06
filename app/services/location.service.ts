@@ -19,6 +19,8 @@ export class LocationService {
     private watchId: number = -1;
     private location$: Subject<Location>;
 
+    public isRunning: boolean = false;
+
     constructor(private store: Store<AppState>) {
 
         if (!geolocation.isEnabled()) {
@@ -50,7 +52,7 @@ export class LocationService {
         // turn watchLocation into location$ Obeservable
         this.watchId = geolocation.watchLocation(
             location => {
-                //this.updateLocationData(location);
+
                 this.location$.next({
                     latitude: location.latitude,
                     longitude: location.longitude,
@@ -68,6 +70,8 @@ export class LocationService {
                 timeout: 10 * 1000
             }
         );
+
+        this.isRunning = true;
     }
 
     stopLocationReadings() {
@@ -77,6 +81,8 @@ export class LocationService {
             this.resetLocationData();
             this.watchId = -1;
         }
+
+        this.isRunning = false;
     }
 
     updateLocationData(location: Location) {

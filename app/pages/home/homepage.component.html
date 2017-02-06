@@ -9,6 +9,6 @@
         <StackLayout class="hr-dark" orientation="horizontal"></StackLayout>
     </StackLayout>
     <Button [text]="btnText" (tap)="start()"></Button>
-    <Button (tap)="tap()" text="tap"></Button>
+    <Button text="tap" (tap)="tap()"></Button>
     <tracklog-viewer [tracklog]="tracklog"></tracklog-viewer>
 </StackLayout>
