@@ -33,7 +33,6 @@ export class HomepageComponent implements OnInit, OnDestroy {
     }
 
     ngOnDestroy() {
-        console.log('ngdestroy');
         this.tracklog$Sub.unsubscribe();
     }
 
