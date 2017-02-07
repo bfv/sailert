@@ -18,8 +18,8 @@ export class SettingsService {
         this.setSpeedUnitsToStore(speedUnits);
     }
 
-    public storeSettings() {
-
+    public storeSettings(settings: AppSettings) {
+        appSettings.setString('speedunits', settings.speedUnits);
     }
 
     public setSpeedUnits(units: SpeedUnit) {
@@ -32,5 +32,13 @@ export class SettingsService {
             type: SettingsActions.SET_SPEEDUNITS,
             payload: units
         });
+    }
+
+    save(settings: AppSettings) {
+        this.store.dispatch({
+            type: SettingsActions.SET_ALL,
+            payload: settings
+        });
+        this.storeSettings(settings);
     }
 }

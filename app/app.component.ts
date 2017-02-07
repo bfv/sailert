@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { SettingsService } from './services/settings.service';
 
 @Component({
     selector: 'my-app',
@@ -9,8 +10,8 @@ export class AppComponent implements OnInit {
 
     private version: number = 2;
 
-    constructor() {
-
+    constructor(private settingsService: SettingsService) {
+        // initialize the SettingsService a.s.a.p.
     }
 
     ngOnInit() {

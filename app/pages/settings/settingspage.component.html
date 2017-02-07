@@ -1,5 +1,10 @@
 <StackLayout class="h100">
-    <Label text="Settings" class="text label"></Label>
-    <text-field placeholder="name"></text-field>
-    <button class="btn" text="Save"></button>
+    <Label text="Settings" class="title label"></Label>
+    <StackLayout class="hr-dark"></StackLayout>
+    <Label text="Speed units: {{speedUnits}}" class="text label" (tap)="toggleList()"></Label>
+    <!--<text-field placeholder="Speed units" [text]="settings.speedUnits"></text-field>-->
+    <ListPicker *ngIf="pickerVisible" #picker class="picker" [items]="items" [selectedIndex]="selectedIndex" verticalAlignment="center"
+        horizontalAlignment="center" (selectedIndexChange)="selectedIndexChanged(picker)"></ListPicker>
+        <StackLayout class="hr-dark"></StackLayout>
+        <button class="btn" text="Save" (tap)="save()"></button>
 </StackLayout>
