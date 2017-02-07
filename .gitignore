@@ -1,0 +1,7 @@
+node_modules
+platforms
+hooks
+debug.log
+app/**/*.js
+app/**/*.js.map
+tmp
