@@ -33,13 +33,11 @@ export class SettingspageComponent implements OnInit {
         let settings$ = <Observable<AppSettings>>this.store.select('settings');
         this.settings$Sub = settings$.subscribe(storeSettings => {
             this.settings = Object.assign({}, storeSettings);
-            console.log('subscribe: ', this.itemValues.indexOf(this.settings.speedUnits));
             this.setValues(this.itemValues.indexOf(this.settings.speedUnits));
         });
     }
 
     selectedIndexChanged(picker) {
-        console.log('selectedIndexChanged: ', picker.selectedIndex, this.pickerVisible, this.useSelectedIndex);
         if (this.useSelectedIndex) {
             this.setValues(picker.selectedIndex);
         }
@@ -47,7 +45,6 @@ export class SettingspageComponent implements OnInit {
     }
 
     private setValues(index: number) {
-        console.log('setValues', index);
         this.selectedIndex = index;
         this.settings.speedUnits = this.itemValues[index];
         this.speedUnits = this.items[index];
