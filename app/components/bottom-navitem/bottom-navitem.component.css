@@ -1,0 +1,13 @@
+
+.bottom-navitem {
+    /*background-color: #666666;*/
+    width: 25%;
+}
+
+.bottom-navitem-icon {
+    font-size: 24dp;
+}
+
+.bottom-navitem-text {
+    font-size: 12dp;
+}
