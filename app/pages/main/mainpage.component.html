@@ -1,14 +1,16 @@
 <ActionBar class="action-bar">
     <ActionItem text="open menu" (tap)="openMenu()" android.position="left">
-        <label class="fa fa-actionbar " text="{{'fa-navicon' | fonticon}}  "></label>
+        <label class="fa fa-actionbar " text="{{'fa-share-alt' | fonticon}}  "></label>
     </ActionItem>
 </ActionBar>
-<RadSideDrawer #drawerComponent [transition]="sideDrawerTransition">
-    <StackLayout tkDrawerContent class="page">
-        <Button text="{{'fa-home' | fonticon}}    Home" [nsRouterLink]="['/main']" nsRouterLinkActive="active" class="btn fa"></Button>
-        <Button text="{{'fa-cog' | fonticon}}    settings" [nsRouterLink]="['/main/settings']" nsRouterLinkActive="active" class="btn fa"></Button>
-    </StackLayout>
-    <StackLayout tkMainContent>
+<StackLayout>
+    <StackLayout class="router-outlet">
         <router-outlet></router-outlet>
     </StackLayout>
-</RadSideDrawer>
+    <bottom-navbar>
+        <bottom-navitem text="Home" icon="fa-home" route="/main"></bottom-navitem>
+        <bottom-navitem text="Map" icon="fa-map-o" route="/main/map"></bottom-navitem>
+        <bottom-navitem text="waypoints" icon="fa-map-pin" route="/main/waypoints"></bottom-navitem>
+        <bottom-navitem text="Settings" icon="fa-cog" route="/main/settings"></bottom-navitem>
+    </bottom-navbar>
+</StackLayout>

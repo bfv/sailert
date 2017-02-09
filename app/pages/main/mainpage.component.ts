@@ -14,25 +14,13 @@ import { TNSFontIconService } from 'nativescript-ngx-fonticon';
 })
 export class MainpageComponent implements OnInit {
 
-    @ViewChild('drawerComponent') public drawerComponent: RadSideDrawerComponent;
-    private drawer: SideDrawerType;
-    private sideDrawerTransition: DrawerTransitionBase;
-
     constructor(private router: Router, private fonticon: TNSFontIconService) {
         // this.fonticon is necessary otherwise the service isn't initialized
     }
 
     ngOnInit() {
-        this.drawer = this.drawerComponent.sideDrawer;
-        this.sideDrawerTransition = new PushTransition();
-        this.router.events.subscribe((e) => {
-            if (e instanceof NavigationEnd) {
-                this.drawer.closeDrawer();
-            }
-        });
     }
 
     openMenu() {
-        this.drawer.toggleDrawerState();
     }
 }

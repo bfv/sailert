@@ -6,3 +6,7 @@
 .rightmargin {
     margin-right: 10px;
 }
+
+.router-outlet {
+    height: 91%;
+}
