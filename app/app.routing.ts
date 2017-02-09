@@ -4,6 +4,8 @@ import { NativeScriptRouterModule } from "nativescript-angular/router";
 
 import { MainpageComponent } from './pages/main/mainpage.component';
 import { HomepageComponent } from './pages/home/homepage.component';
+import { MappageComponent } from './pages/map/mappage.component';
+import { WaypointpageComponent } from './pages/waypoints/waypointspage.components';
 import { SettingspageComponent } from './pages/settings/settingspage.component';
 
 const routes: Routes = [
@@ -13,6 +15,8 @@ const routes: Routes = [
         component: MainpageComponent,
         children: [
             { path: '', component: HomepageComponent },
+            { path: 'map', component: MappageComponent },
+            { path: 'waypoints', component: WaypointpageComponent },
             { path: 'settings', component: SettingspageComponent },
         ]
     },
