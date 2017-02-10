@@ -8,7 +8,6 @@ import { TNSFontIconModule } from 'nativescript-ngx-fonticon';
         TNSFontIconModule.forRoot({
             'fa': 'font-awesome.css'
         }),
-
     ],
     declarations: [
         BottomNavbarComponent,
@@ -17,9 +16,6 @@ import { TNSFontIconModule } from 'nativescript-ngx-fonticon';
     exports: [
         BottomNavbarComponent,
         BottomNavitemComponent
-    ],
-    providers: [
-
     ]
 })
 export class BottomNavbarModule { }
