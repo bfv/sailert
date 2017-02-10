@@ -20,8 +20,7 @@ import { settingsReducer } from './store/settings.reducer';
 import { AppComponent } from "./app.component";
 
 // components
-import { BottomNavbarComponent } from './components/bottom-navbar/bottom-navbar.component';
-import { BottomNavitemComponent } from './components/bottom-navitem/bottom-navitem.component';
+import { BottomNavbarModule } from './modules/bottomnavbar/bottomnavbar.module';
 
 // application
 import { MainpageComponent } from './pages/main/mainpage.component';
@@ -41,8 +40,6 @@ import { SettingsService } from './services/settings.service';
     declarations: [
         SIDEDRAWER_DIRECTIVES,
         AppComponent,
-        BottomNavbarComponent,
-        BottomNavitemComponent,
         MainpageComponent,
         MappageComponent,
         WaypointpageComponent,
@@ -70,6 +67,7 @@ import { SettingsService } from './services/settings.service';
             tracklog: tracklogReducer,
             settings: settingsReducer,
         }),
+        BottomNavbarModule
     ],
     schemas: [NO_ERRORS_SCHEMA],
     exports: [
