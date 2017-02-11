@@ -11,3 +11,8 @@
 .bottom-navitem-text {
     font-size: 12dp;
 }
+
+.bottom-navitem-selected {
+    background-color: red;
+    width: 25%;
+}
