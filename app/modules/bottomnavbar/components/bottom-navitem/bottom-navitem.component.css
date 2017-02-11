@@ -1,16 +1,13 @@
 
 .bottom-navitem {
-    /*width: 25%;*/
     margin-top: 8dp;
-    margin-bottom: 8dp;
+    margin-bottom: 6dp;
     font-size: 12sp;
 }
 
 .bottom-navitem-selected {
-    /*background-color: red;*/ 
-    /*width: 25%;*/
     margin-top: 6dp;
-    margin-bottom: 8dp;
+    margin-bottom: 6dp;
     font-size: 14sp;
 }
 
@@ -19,7 +16,7 @@
 }
 
 .bottom-navitem-text {
-    font-size: inherit;
+    font-family: "Roboto-Regular";
 }
 
 .items1 {
