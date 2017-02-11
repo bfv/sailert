@@ -1,7 +1,17 @@
 
 .bottom-navitem {
-    /*background-color: #666666;*/
-    width: 25%;
+    /*width: 25%;*/
+    margin-top: 8dp;
+    margin-bottom: 8dp;
+    font-size: 12sp;
+}
+
+.bottom-navitem-selected {
+    /*background-color: red;*/ 
+    /*width: 25%;*/
+    margin-top: 6dp;
+    margin-bottom: 8dp;
+    font-size: 14sp;
 }
 
 .bottom-navitem-icon {
@@ -9,10 +19,27 @@
 }
 
 .bottom-navitem-text {
-    font-size: 12dp;
+    font-size: inherit;
 }
 
-.bottom-navitem-selected {
-    background-color: red;
+.items1 {
+    width: 100%;
+}
+
+.items2 {
+    width: 50%;
+}
+
+.items3 {
+    width: 33%;
+}
+
+.items4 { 
     width: 25%;
 }
+
+/* max 5 icons supported */
+.item5 {
+    width: 20%;
+}
+

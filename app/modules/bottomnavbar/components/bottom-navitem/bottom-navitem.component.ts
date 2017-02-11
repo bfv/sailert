@@ -20,6 +20,7 @@ export class BottomNavitemComponent implements OnInit {
     route: string;
 
     componentClass: string;
+    itemWidthClass: string;
     onItemSelected: EventEmitter<number>;
 
     constructor(private router: Router, private ref: ChangeDetectorRef) {
@@ -51,4 +52,8 @@ export class BottomNavitemComponent implements OnInit {
         this.ref.detectChanges();
     }
 
+    setSiblingCount(totalSiblings: number) {
+        this.itemWidthClass = 'items' + totalSiblings.toString();
+        this.ref.detectChanges();
+    }
 }
