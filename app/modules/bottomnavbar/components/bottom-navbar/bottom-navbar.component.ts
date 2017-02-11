@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChildren, QueryList, AfterViewInit, ContentChildren, OnDestroy } from '@angular/core';
 import { Page } from 'ui/page';
 import { BottomNavitemComponent } from './../bottom-navitem/bottom-navitem.component';
+import { Router } from '@angular/router';
 
 @Component({
     moduleId: module.id,
@@ -13,13 +14,10 @@ export class BottomNavbarComponent implements OnInit, AfterViewInit, OnDestroy {
     // @ViewChildren decorator doesn't work when the first child is ng-content
     @ContentChildren(BottomNavitemComponent) contentItems: QueryList<BottomNavitemComponent>;
     navItems: BottomNavitemComponent[] = [];
-    private subs: any[] = [];
 
-    constructor(private page: Page) { }
+    constructor(private page: Page, private router: Router) { }
 
-    ngOnInit() {
-
-    }
+    ngOnInit() { }
 
     ngOnDestroy() {
         for (let item of this.navItems) {
@@ -29,17 +27,27 @@ export class BottomNavbarComponent implements OnInit, AfterViewInit, OnDestroy {
 
     ngAfterViewInit() {
 
+        let initialSelected: number = 0;
+
         this.contentItems.forEach((item, id, allItems) => {
             item.id = id;
+
+            // find out if item's route is the selected one
+            if (item.route == this.router.url) {
+                initialSelected = item.id;
+            }
+
+            // help set the correct width in the navitem's
             item.setSiblingCount(this.contentItems.length);
+
             this.navItems.push(item);
             item.onItemSelected.subscribe(id => {
                 this.selectNavitem(id);
             });
         });
 
-        // first select the BottomNavitemComponent with index 0
-        this.selectNavitem(0);
+        // make selected route 'active'
+        this.selectNavitem(initialSelected);
     }
 
     public selectNavitem(selectedIndex: number) {
