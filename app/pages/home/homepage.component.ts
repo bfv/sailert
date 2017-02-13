@@ -19,32 +19,41 @@ export class HomepageComponent implements OnInit, OnDestroy {
     private tracklog$Sub: Subscription;
 
     public tracklog: TrackPoint[] = [];
+    private isRunning: boolean;
+    private isRunning$Sub: Subscription;
 
     constructor(private locationService: LocationService, private store: Store<AppState>, private ref: ChangeDetectorRef) {
 
     }
 
     ngOnInit() {
+
         this.tracklog$ = <Observable<TrackPoint[]>>this.store.select('tracklog');
-        this.tracklog$Sub = this.tracklog$.subscribe(track => {
-            this.tracklog = track;
-            this.ref.detectChanges();
-        });
+        this.tracklog$Sub = this.tracklog$
+            .subscribe(track => {
+                this.tracklog = track.reverse();
+                this.ref.detectChanges();
+            });
+
+        this.isRunning$Sub = this.locationService.isRunning$
+            .subscribe(running => {
+                this.onRunningChanged(running);
+            });
+
     }
 
     ngOnDestroy() {
         this.tracklog$Sub.unsubscribe();
+        this.isRunning$Sub.unsubscribe();
     }
 
     start(): void {
-        if (!this.locationService.isRunning) {
+        if (!this.isRunning) {
             this.locationService.startLocationReadings();
         }
         else {
             this.locationService.stopLocationReadings();
         }
-
-        this.btnText = this.locationService.isRunning ? 'STOP' : 'START';
     }
 
     tap() {
@@ -52,6 +61,11 @@ export class HomepageComponent implements OnInit, OnDestroy {
             type: TracklogActions.RESET,
             payload: null
         });
+    }
+
+    private onRunningChanged(running): void {
+        this.isRunning = running;
+        this.btnText = this.isRunning ? 'STOP' : 'START';
     }
 
 }

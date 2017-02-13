@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { AppState } from './../store/appstate';
-import { Subject, Observable } from 'rxjs';
+import { Subject, Observable, BehaviorSubject } from 'rxjs';
 import { SpeedActions } from './../store/speed.reducer';
 import { CourseActions } from './../store/course.reducer';
 import { PositionActions } from './../store/position.reducer';
@@ -19,7 +19,7 @@ export class LocationService {
     private watchId: number = -1;
     private location$: Subject<Location>;
 
-    public isRunning: boolean = false;
+    public isRunning$: Subject<boolean>;
 
     constructor(private store: Store<AppState>) {
 
@@ -40,6 +40,7 @@ export class LocationService {
                 this.updateTracklog(location);
             });
 
+        this.isRunning$ = new BehaviorSubject(false);
     }
 
     startLocationReadings() {
@@ -71,7 +72,7 @@ export class LocationService {
             }
         );
 
-        this.isRunning = true;
+        this.isRunning$.next(true);
     }
 
     stopLocationReadings() {
@@ -82,7 +83,7 @@ export class LocationService {
             this.watchId = -1;
         }
 
-        this.isRunning = false;
+        this.isRunning$.next(false);
     }
 
     updateLocationData(location: Location) {
