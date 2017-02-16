@@ -21,6 +21,7 @@ import { AppComponent } from "./app.component";
 
 // components
 import { BottomNavbarModule } from './modules/bottomnavbar/bottomnavbar.module';
+import { ComponentsModule } from './components/components.module';
 
 // application
 import { MainpageComponent } from './pages/main/mainpage.component';
@@ -67,7 +68,8 @@ import { SettingsService } from './services/settings.service';
             tracklog: tracklogReducer,
             settings: settingsReducer,
         }),
-        BottomNavbarModule
+        BottomNavbarModule,
+        ComponentsModule
     ],
     schemas: [NO_ERRORS_SCHEMA],
     exports: [
