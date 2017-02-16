@@ -4,6 +4,7 @@ import { Observable, Subscription } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { AppState } from './../../store/appstate';
 import { SettingsService } from './../../services/settings.service';
+import * as Toast from 'nativescript-toast';
 
 @Component({
     moduleId: module.id,
@@ -56,6 +57,14 @@ export class SettingspageComponent implements OnInit {
     }
 
     save() {
+
         this.settingsService.save(this.settings);
+
+        try {
+            Toast.makeText('Settings saved').show();
+        }
+        catch (e) {
+            console.log('Toast error: ', e.toString());
+        }
     }
 }
