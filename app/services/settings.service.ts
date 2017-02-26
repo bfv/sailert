@@ -4,41 +4,69 @@ import { Store } from '@ngrx/store';
 import { AppState } from './../store/appstate';
 import * as appSettings from "application-settings";
 import { SettingsActions } from './../store/settings.reducer';
-import { SpeedUnit } from './../shared/types';
+import { SpeedUnit, CoordinateStyle } from './../shared/types';
 
 @Injectable()
 export class SettingsService {
+
+    private settings: AppSettings;
 
     constructor(private store: Store<AppState>) {
         this.initializeSettings();
     }
 
     private initializeSettings() {
-        let speedUnits = <SpeedUnit>appSettings.getString('speedunits', 'kt');
-        this.setSpeedUnitsToStore(speedUnits);
+
+        this.settings = new AppSettings();
+
+        this.settings = {
+            speedUnits: <SpeedUnit>appSettings.getString('speedunits', 'kt'),
+            coordinateStyle: <CoordinateStyle>appSettings.getString('coordinatestyle', 'minutes')
+
+        };
+        this.pushSettingsToStore(this.settings);
     }
 
-    public storeSettings(settings: AppSettings) {
-        appSettings.setString('speedunits', settings.speedUnits);
+    // save all settings
+    save(settings: AppSettings) {
+        this.pushSettingsToStore(settings);
+        this.persistSettings(settings);
     }
 
-    public setSpeedUnits(units: SpeedUnit) {
+    // setting the individual settings is supported as well
+    setSpeedUnits(units: SpeedUnit) {
         appSettings.setString('speedunits', units);
-        this.setSpeedUnitsToStore(units);
+        this.pushSpeedUnitsToStore(units);
     }
 
-    private setSpeedUnitsToStore(units: SpeedUnit) {
+    setCoordinateStyle(style: CoordinateStyle) {
+        appSettings.setString('coordinatestyle', style);
+        this.pushCoordinateStyleToStore(style);
+    }
+
+    private persistSettings(settings: AppSettings) {
+        appSettings.setString('speedunits', settings.speedUnits);
+        appSettings.setString('coordinatestyle', settings.coordinateStyle);
+    }
+
+    private pushSpeedUnitsToStore(units: SpeedUnit) {
         this.store.dispatch({
             type: SettingsActions.SET_SPEEDUNITS,
             payload: units
         });
     }
 
-    save(settings: AppSettings) {
+    private pushCoordinateStyleToStore(style: CoordinateStyle) {
+        this.store.dispatch({
+            type: SettingsActions.SET_COORDINATESTYLE,
+            payload: style
+        });
+    }
+
+    private pushSettingsToStore(settings: AppSettings) {
         this.store.dispatch({
             type: SettingsActions.SET_ALL,
             payload: settings
         });
-        this.storeSettings(settings);
     }
 }
