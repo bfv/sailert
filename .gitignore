@@ -5,3 +5,4 @@ debug.log
 app/**/*.js
 app/**/*.js.map
 tmp
+resources
