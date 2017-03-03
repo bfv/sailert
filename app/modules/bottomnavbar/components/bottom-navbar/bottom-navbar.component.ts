@@ -37,9 +37,6 @@ export class BottomNavbarComponent implements OnInit, AfterViewInit, OnDestroy {
                 initialSelected = item.id;
             }
 
-            // help set the correct width in the navitem's
-            item.setSiblingCount(this.contentItems.length);
-
             this.navItems.push(item);
             item.onItemSelected.subscribe(id => {
                 this.selectNavitem(id);

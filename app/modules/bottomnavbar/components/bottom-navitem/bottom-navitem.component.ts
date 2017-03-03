@@ -51,9 +51,4 @@ export class BottomNavitemComponent implements OnInit {
         this.componentClass = isSelected ? 'bottom-navitem-selected' : 'bottom-navitem';
         this.ref.detectChanges();
     }
-
-    setSiblingCount(totalSiblings: number) {
-        this.itemWidthClass = 'items' + totalSiblings.toString();
-        this.ref.detectChanges();
-    }
 }
