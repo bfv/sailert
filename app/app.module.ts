@@ -29,6 +29,7 @@ import { HomepageComponent } from './pages/home/homepage.component';
 import { MappageComponent } from './pages/map/mappage.component';
 import { WaypointpageComponent } from './pages/waypoints/waypointspage.components';
 import { SettingspageComponent } from './pages/settings/settingspage.component';
+import { OptionspageComponent } from './pages/options/optionspage.component';
 import { LatitudeDegrees, LongitudeDegreesPipe } from './pipes/degrees.pipe';
 import { SpeedComponent } from './components/speed/speed.component';
 import { CourseComponent } from './components/course/course.component';
@@ -36,6 +37,8 @@ import { PositionComponent } from './components/position/position.component';
 import { LocationService } from './services/location.service';
 import { TracklogViewerComponent } from './components/tracklog-viewer/tracklog-viewer.component';
 import { SettingsService } from './services/settings.service';
+import { OptionsettingsService } from './pages/options/optionsetting.service';
+
 
 @NgModule({
     declarations: [
@@ -46,6 +49,7 @@ import { SettingsService } from './services/settings.service';
         WaypointpageComponent,
         HomepageComponent,
         SettingspageComponent,
+        OptionspageComponent,
         LatitudeDegrees,
         LongitudeDegreesPipe,
         SpeedComponent,
@@ -79,7 +83,8 @@ import { SettingsService } from './services/settings.service';
     providers: [
         appRoutingProviders,
         LocationService,
-        SettingsService
+        SettingsService,
+        OptionsettingsService,
     ]
 })
 export class AppModule { }

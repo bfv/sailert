@@ -1,0 +1,13 @@
+<ActionBar [title]="optionPageSettings.title" class="action-bar">
+    <NavigationButton text="Go Back" android.systemIcon="ic_menu_back" (tap)="onNavBtnTap()"></NavigationButton>
+</ActionBar>
+
+<StackLayout>
+    <ListView [items]="items">
+        <template let-item="item" let-i="index">
+            <StackLayout orientation="horizontal">
+                <Label [text]="item.value" class="item"></Label>
+            </StackLayout>
+        </template>
+    </ListView>
+</StackLayout>

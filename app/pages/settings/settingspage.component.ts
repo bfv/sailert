@@ -5,6 +5,10 @@ import { Store } from '@ngrx/store';
 import { AppState } from './../../store/appstate';
 import { SettingsService } from './../../services/settings.service';
 import * as Toast from 'nativescript-toast';
+import { OptionsPageSettings } from './../options/opionspagesettings';
+import { OptionsettingsService } from './../../pages/options/optionsetting.service';
+
+import { Router } from '@angular/router';
 
 @Component({
     moduleId: module.id,
@@ -24,7 +28,7 @@ export class SettingspageComponent implements OnInit {
     private settings$Sub: Subscription;
     private useSelectedIndex: boolean;
 
-    constructor(private store: Store<AppState>, private settingsService: SettingsService) { }
+    constructor(private store: Store<AppState>, private settingsService: SettingsService, private router: Router, private optionsService: OptionsettingsService) { }
 
     ngOnInit() {
 
@@ -66,5 +70,24 @@ export class SettingspageComponent implements OnInit {
         catch (e) {
             console.log('Toast error: ', e.toString());
         }
+    }
+
+    openOptionsPage(optionsPageName: string) {
+        console.log('launch optionspage: ', optionsPageName);
+
+        let options: OptionsPageSettings;
+
+        options = {
+            title: 'Coordinate Style',
+            values: [
+                { key: 'deg', value: 'ddd.ddddd' + '\u00B0' },
+                { key: 'min', value: 'ddd\u00B0 mm.mmm\'' },
+                { key: 'sec', value: 'ddd\u00B0 mm\' ss.s"' }
+            ],
+            selectedIndex: 1
+        }
+
+        this.optionsService.setOptionSettings(options);
+        this.router.navigate(['/settingsoptions']);
     }
 }

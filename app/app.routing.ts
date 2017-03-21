@@ -7,6 +7,7 @@ import { HomepageComponent } from './pages/home/homepage.component';
 import { MappageComponent } from './pages/map/mappage.component';
 import { WaypointpageComponent } from './pages/waypoints/waypointspage.components';
 import { SettingspageComponent } from './pages/settings/settingspage.component';
+import { OptionspageComponent } from './pages/options/optionspage.component';
 
 const routes: Routes = [
     { path: '', redirectTo: '/main', pathMatch: 'full' },
@@ -20,6 +21,7 @@ const routes: Routes = [
             { path: 'settings', component: SettingspageComponent },
         ]
     },
+    { path: 'settingsoptions', component: OptionspageComponent }
 ];
 
 export const appRoutingProviders: any[] = [
