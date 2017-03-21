@@ -6,7 +6,7 @@
     <ListView [items]="items">
         <template let-item="item" let-i="index">
             <StackLayout orientation="horizontal">
-                <Label [text]="item.value" class="item"></Label>
+                <Label [text]="item.value" class="item" (tap)="setValue(item.key)"></Label>
             </StackLayout>
         </template>
     </ListView>

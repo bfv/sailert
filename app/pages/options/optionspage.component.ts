@@ -23,4 +23,8 @@ export class OptionspageComponent implements OnInit {
     onNavBtnTap() {
         this.location.back();
     }
+
+    setValue(newValue: string) {
+        this.optionsService.setValue(newValue);
+    }
 }

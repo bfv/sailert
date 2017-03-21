@@ -9,6 +9,8 @@ import { OptionsPageSettings } from './../options/opionspagesettings';
 import { OptionsettingsService } from './../../pages/options/optionsetting.service';
 
 import { Router } from '@angular/router';
+import { RouterExtensions } from "nativescript-angular/router";
+
 
 @Component({
     moduleId: module.id,
@@ -27,8 +29,9 @@ export class SettingspageComponent implements OnInit {
     private itemValues = [];
     private settings$Sub: Subscription;
     private useSelectedIndex: boolean;
+    private selectedOption$: Observable<string>;
 
-    constructor(private store: Store<AppState>, private settingsService: SettingsService, private router: Router, private optionsService: OptionsettingsService) { }
+    constructor(private store: Store<AppState>, private settingsService: SettingsService, private routerExtensions: RouterExtensions, private optionsService: OptionsettingsService) { }
 
     ngOnInit() {
 
@@ -73,7 +76,7 @@ export class SettingspageComponent implements OnInit {
     }
 
     openOptionsPage(optionsPageName: string) {
-        console.log('launch optionspage: ', optionsPageName);
+        //console.log('launch optionspage: ', optionsPageName);
 
         let options: OptionsPageSettings;
 
@@ -84,10 +87,20 @@ export class SettingspageComponent implements OnInit {
                 { key: 'min', value: 'ddd\u00B0 mm.mmm\'' },
                 { key: 'sec', value: 'ddd\u00B0 mm\' ss.s"' }
             ],
-            selectedIndex: 1
+            currentValue: 'min'
         }
 
-        this.optionsService.setOptionSettings(options);
-        this.router.navigate(['/settingsoptions']);
+        this.selectedOption$ = this.optionsService.setOptionSettings(options);
+        this.selectedOption$.subscribe((newValue) => {
+            console.log('newValue', newValue);
+        });
+
+        this.routerExtensions.navigate(['/settingsoptions'], {
+            transition: {
+                name: "slide",
+                duration: 150,
+                curve: "linear"
+            }
+        });
     }
 }
