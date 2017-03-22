@@ -6,6 +6,8 @@ export class LatitudeDegrees implements PipeTransform {
 
     transform(degrees: number, type: string): string {
 
+        type = setDefaults(type);
+
         let hemisphere = (type.substr(0, 1) == 'h');
         if (hemisphere) {
             type = type.substr(1);
@@ -40,6 +42,8 @@ export class LongitudeDegreesPipe implements PipeTransform {
 
     transform(degrees: number, type: string): string {
 
+        type = setDefaults(type);
+        console.log('Longitude: ', type);
         let hemisphere = (type.substr(0, 1) == 'h');
         if (hemisphere) {
             type = type.substr(1);
@@ -52,7 +56,7 @@ export class LongitudeDegreesPipe implements PipeTransform {
             precision = parseInt(type.substr(colonPos + 1));
             type = type.substr(0, colonPos);
         }
-
+        console.log(degrees, type, precision);
         let converted = convert(degrees, type, precision);
 
         if (hemisphere) {
@@ -150,4 +154,26 @@ function getDefaultPrecision(type: string): number {
     }
 
     return precision;
+}
+
+function setDefaults(type: string): string {
+
+    console.log('setDefault in:', type);
+    switch (type) {
+        case 'deg' || 'degrees':
+            type = 'hdeg:5';
+            break;
+        case 'min' || 'minutes':
+            type = 'hmin:3';
+            break;
+        case 'sec' || 'seconds':
+            type = 'hsec:1';
+            break;
+    }
+
+    if (type == '' || type == undefined) {
+        type = 'hdeg:5';
+    }
+
+    return type;
 }
