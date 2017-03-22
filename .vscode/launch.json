@@ -41,7 +41,7 @@
             "platform": "android",
             "appRoot": "${workspaceRoot}",
             "sourceMaps": true,
-            "rebuild": true
+            "watch": true
         },
         {
             "name": "Attach on Android",
