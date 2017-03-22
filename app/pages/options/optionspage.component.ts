@@ -26,5 +26,6 @@ export class OptionspageComponent implements OnInit {
 
     setValue(newValue: string) {
         this.optionsService.setValue(newValue);
+        this.onNavBtnTap();
     }
 }
