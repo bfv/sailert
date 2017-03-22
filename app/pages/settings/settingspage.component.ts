@@ -10,7 +10,7 @@ import { OptionsettingsService } from './../../pages/options/optionsetting.servi
 
 import { Router } from '@angular/router';
 import { RouterExtensions } from "nativescript-angular/router";
-
+import { SpeedUnit, CoordinateStyle } from './../../shared/types';
 
 @Component({
     moduleId: module.id,
@@ -83,16 +83,18 @@ export class SettingspageComponent implements OnInit {
         options = {
             title: 'Coordinate Style',
             values: [
-                { key: 'deg', value: 'ddd.ddddd' + '\u00B0' },
-                { key: 'min', value: 'ddd\u00B0 mm.mmm\'' },
-                { key: 'sec', value: 'ddd\u00B0 mm\' ss.s"' }
+                { key: 'degrees', value: 'ddd.ddddd' + '\u00B0' },
+                { key: 'minutes', value: 'ddd\u00B0 mm.mmm\'' },
+                { key: 'seconds', value: 'ddd\u00B0 mm\' ss.s"' }
             ],
-            currentValue: 'min'
+            currentValue: 'minutes'
         }
 
         this.selectedOption$ = this.optionsService.setOptionSettings(options);
         this.selectedOption$.subscribe((newValue) => {
             console.log('newValue', newValue);
+            this.settings.coordinateStyle = <CoordinateStyle>newValue;
+            this.settingsService.save(this.settings);
         });
 
         this.routerExtensions.navigate(['/settingsoptions'], {
