@@ -56,7 +56,7 @@ export class HomepageComponent implements OnInit, OnDestroy {
         }
     }
 
-    tap() {
+    resetTracklog() {
         this.store.dispatch({
             type: TracklogActions.RESET,
             payload: null
