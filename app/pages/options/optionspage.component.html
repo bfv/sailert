@@ -4,10 +4,10 @@
 
 <StackLayout>
     <ListView [items]="items">
-        <template let-item="item" let-i="index">
+        <ng-template let-item="item" let-i="index">
             <StackLayout orientation="horizontal">
                 <Label [text]="item.value" class="item" (tap)="setValue(item.key)"></Label>
             </StackLayout>
-        </template>
+        </ng-template>
     </ListView>
 </StackLayout>
