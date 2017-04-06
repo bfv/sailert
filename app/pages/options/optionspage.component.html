@@ -5,8 +5,8 @@
 <StackLayout>
     <ListView [items]="items">
         <ng-template let-item="item" let-i="index">
-            <StackLayout orientation="horizontal">
-                <Label [text]="item.value" class="item" (tap)="setValue(item.key)"></Label>
+            <StackLayout orientation="horizontal" (tap)="setValue(item.key)">
+                <Label [text]="item.value" class="item"></Label>
             </StackLayout>
         </ng-template>
     </ListView>

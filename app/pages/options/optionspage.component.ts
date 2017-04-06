@@ -6,7 +6,8 @@ import { Location } from '@angular/common';
 @Component({
     moduleId: module.id,
     selector: 'optionspage',
-    templateUrl: 'optionspage.component.html'
+    templateUrl: 'optionspage.component.html',
+    styleUrls: ['optionspage.component.css']
 })
 export class OptionspageComponent implements OnInit {
 

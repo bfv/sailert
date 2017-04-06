@@ -1,9 +1,21 @@
 
-.text {
-    font-size: 18pt;
-}
-
 .title {
     font-size: 24pt;
     font-weight: bold;
 }
+
+.setting {
+    height: 10%;
+    vertical-align: middle;
+    margin-left: 10dp;
+}
+
+.settingtext {
+    font-size: 18pt;
+    color: black;
+}
+
+.currentsetting {
+    font-size: 14pt;
+}
+

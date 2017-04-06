@@ -11,6 +11,7 @@ import { OptionsettingsService } from './../../pages/options/optionsetting.servi
 import { Router } from '@angular/router';
 import { RouterExtensions } from "nativescript-angular/router";
 import { SpeedUnit, CoordinateStyle } from './../../shared/types';
+import { CoordinateDisplayStyle, SpeedUnitsDisplayStyle } from './../../shared/constants';
 
 @Component({
     moduleId: module.id,
@@ -21,12 +22,10 @@ import { SpeedUnit, CoordinateStyle } from './../../shared/types';
 export class SettingspageComponent implements OnInit {
 
     public settings: AppSettings;
-    public selectedIndex: number;
-    public items = [];
-    public pickerVisible: boolean = false;
     public speedUnits: string;
+    public currentCoordinateStyle: string;
+    public currentSpeedUnits: string;
 
-    private itemValues = [];
     private settings$Sub: Subscription;
     private useSelectedIndex: boolean;
     private selectedOption$: Observable<string>;
@@ -35,32 +34,14 @@ export class SettingspageComponent implements OnInit {
 
     ngOnInit() {
 
-        this.items = ['m/s', 'km/h', 'knots'];
-        this.itemValues = ['ms', 'kmh', 'kt'];
-
         let settings$ = <Observable<AppSettings>>this.store.select('settings');
         this.settings$Sub = settings$.subscribe(storeSettings => {
             this.settings = Object.assign({}, storeSettings);
-            this.setValues(this.itemValues.indexOf(this.settings.speedUnits));
         });
-    }
 
-    selectedIndexChanged(picker) {
-        if (this.useSelectedIndex) {
-            this.setValues(picker.selectedIndex);
-        }
-        this.useSelectedIndex = true;
-    }
+        this.currentSpeedUnits = SpeedUnitsDisplayStyle[this.settings.speedUnits];
+        this.currentCoordinateStyle = CoordinateDisplayStyle[this.settings.coordinateStyle];
 
-    private setValues(index: number) {
-        this.selectedIndex = index;
-        this.settings.speedUnits = this.itemValues[index];
-        this.speedUnits = this.items[index];
-    }
-
-    toggleList() {
-        this.pickerVisible = !this.pickerVisible;
-        this.useSelectedIndex = false;
     }
 
     save() {
@@ -76,25 +57,26 @@ export class SettingspageComponent implements OnInit {
     }
 
     openOptionsPage(optionsPageName: string) {
-        //console.log('launch optionspage: ', optionsPageName);
 
         let options: OptionsPageSettings;
 
-        options = {
-            title: 'Coordinate Style',
-            values: [
-                { key: 'degrees', value: 'ddd.ddddd' + '\u00B0' },
-                { key: 'minutes', value: 'ddd\u00B0 mm.mmm\'' },
-                { key: 'seconds', value: 'ddd\u00B0 mm\' ss.s"' }
-            ],
-            currentValue: 'minutes'
-        }
+        options = this.getOptions(optionsPageName);
 
         this.selectedOption$ = this.optionsService.setOptionSettings(options);
         this.selectedOption$.subscribe((newValue) => {
-            console.log('newValue', newValue);
-            this.settings.coordinateStyle = <CoordinateStyle>newValue;
-            this.settingsService.save(this.settings);
+
+            switch (optionsPageName) {
+
+                case 'coordinatestyle':
+                    this.settings.coordinateStyle = <CoordinateStyle>newValue;
+                    break;
+
+                case 'speedunits':
+                    this.settings.speedUnits = <SpeedUnit>newValue;
+                    break;
+            }
+
+            this.save();
         });
 
         this.routerExtensions.navigate(['/settingsoptions'], {
@@ -104,5 +86,40 @@ export class SettingspageComponent implements OnInit {
                 curve: "linear"
             }
         });
+    }
+
+    private getOptions(optionsPageName: string): OptionsPageSettings {
+
+        let options: OptionsPageSettings;
+
+        switch (optionsPageName) {
+
+            case 'coordinatestyle':
+                options = {
+                    title: 'Coordinate Style',
+                    values: [
+                        { key: 'degrees', value: 'ddd.ddddd' + '\u00B0' },
+                        { key: 'minutes', value: 'ddd\u00B0 mm.mmm\'' },
+                        { key: 'seconds', value: 'ddd\u00B0 mm\' ss.s"' }
+                    ],
+                    currentValue: this.settings.coordinateStyle
+                };
+                break;
+
+            case 'speedunits':
+                options = {
+                    title: 'Speed units',
+                    values: [
+                        { key: 'kt', value: SpeedUnitsDisplayStyle.kt },
+                        { key: 'kmh', value: SpeedUnitsDisplayStyle.kmh },
+                        { key: 'ms', value: SpeedUnitsDisplayStyle.ms }
+                    ],
+                    currentValue: this.settings.speedUnits
+                };
+                break;
+        }
+
+        return options;
+
     }
 }
