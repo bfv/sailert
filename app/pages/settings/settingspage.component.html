@@ -3,14 +3,24 @@
         <Label text="Settings" class="title label"></Label>
     </StackLayout>
     <StackLayout class="hr-dark"></StackLayout>
-    <StackLayout class="setting" (tap)="openOptionsPage('speedunits')">
-        <label text="Speed units" class="settingtext label"></label>
-        <label [text]="currentSpeedUnits" class="currentsetting label"></label>
+    <StackLayout orientation="horizontal" class="setting" (tap)="openOptionsPage('speedunits')">
+        <StackLayout class="settingiconcontainer">
+            <label [text]="'fa-dashboard' | fonticon" class="fa settingicon"></label>
+        </StackLayout>
+        <StackLayout class="textcontainer">
+            <label text="Speed units" class="settingtext label"></label>
+            <label [text]="currentSpeedUnits" class="currentsetting label"></label>
+        </StackLayout>
     </StackLayout>
-    <StackLayout class="hr-dark"></StackLayout>
-    <StackLayout class="setting" (tap)="openOptionsPage('coordinatestyle')">
-        <label text="Coordinate style" class="settingtext label"></label>
-        <label [text]="currentCoordinateStyle" class="currentsetting label"></label>
+    <StackLayout class="hr-light"></StackLayout>
+    <StackLayout orientation="horizontal" class="setting" (tap)="openOptionsPage('coordinatestyle')">
+        <StackLayout class="settingiconcontainer">
+            <label [text]="'fa-map-o' | fonticon" class="fa settingicon"></label>
+        </StackLayout>
+        <StackLayout class="textcontainer">
+            <label text="Coordinate style" class="settingtext label"></label>
+            <label [text]="currentCoordinateStyle" class="currentsetting label"></label>
+        </StackLayout>
     </StackLayout>
     <StackLayout class="hr-dark"></StackLayout>
 </StackLayout>

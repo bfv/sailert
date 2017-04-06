@@ -5,7 +5,7 @@
 }
 
 .setting {
-    height: 10%;
+    height: 16%;
     vertical-align: middle;
     margin-left: 10dp;
 }
@@ -19,3 +19,21 @@
     font-size: 14pt;
 }
 
+.fa {
+    font-family: FontAwesome, fontawesome-webfont;
+}
+
+.settingicon {
+    font-size: 24pt;
+    color: #00796B;
+}
+
+.settingiconcontainer {
+    vertical-align: middle;
+    margin-left: 10dp;
+    margin-right: 20dp;
+}
+
+.textcontainer {
+    vertical-align: middle;
+}
