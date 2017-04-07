@@ -6,7 +6,6 @@ import { NativeScriptRouterModule, } from "nativescript-angular/router";
 import { appRoutingProviders, routing } from './app.routing';
 
 // UI
-import { SIDEDRAWER_DIRECTIVES, } from "nativescript-telerik-ui/sidedrawer/angular";
 import { TNSFontIconModule } from 'nativescript-ngx-fonticon';
 
 // store
@@ -42,7 +41,6 @@ import { OptionsettingsService } from './pages/options/optionsetting.service';
 
 @NgModule({
     declarations: [
-        SIDEDRAWER_DIRECTIVES,
         AppComponent,
         MainpageComponent,
         MappageComponent,

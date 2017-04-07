@@ -1,9 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
-
-// nativescript
-import { RadSideDrawerComponent, SideDrawerType } from 'nativescript-telerik-ui/sidedrawer/angular';
-import { DrawerTransitionBase, PushTransition } from 'nativescript-telerik-ui/sidedrawer';
 import { TNSFontIconService } from 'nativescript-ngx-fonticon';
 
 @Component({
