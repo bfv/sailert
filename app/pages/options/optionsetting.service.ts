@@ -1,24 +1,26 @@
 import { Injectable } from '@angular/core';
-import { OptionsPageSettings } from './opionspagesettings';
 import { Subject } from 'rxjs';
+import { OptionsPageSettings } from './opionspagesettings';
 
 @Injectable()
 export class OptionsettingsService {
 
-    optionPageSettings: OptionsPageSettings;
+    public optionPageSettings: OptionsPageSettings;
 
     private optionSubject: Subject<string>;
 
-    constructor() { }
+    constructor() {
+        // empty
+    }
 
 
-    setOptionSettings(options: OptionsPageSettings): Subject<string> {
+    public setOptionSettings(options: OptionsPageSettings): Subject<string> {
         this.optionPageSettings = options;
         this.optionSubject = new Subject();
         return this.optionSubject;
     }
 
-    setValue(newValue: string) {
+    public setValue(newValue: string) {
         this.optionSubject.next(newValue);
     }
 }

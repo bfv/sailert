@@ -3,11 +3,16 @@ import { Component, OnInit } from '@angular/core';
 @Component({
     moduleId: module.id,
     selector: 'mappage',
+    styleUrls: ['mappage.component.css'],
     templateUrl: 'mappage.component.html',
-    styleUrls: ['mappage.component.css']
 })
 export class MappageComponent implements OnInit {
-    constructor() { }
 
-    ngOnInit() { }
+    constructor() {
+        // empty
+     }
+
+    public ngOnInit() {
+        // empty
+    }
 }

@@ -1,6 +1,6 @@
 
 export interface OptionsPageSettings {
     title: string;
-    values: { key: string, value: string }[];
+    values: Array<{ key: string, value: string }>;
     currentValue: string;
 }

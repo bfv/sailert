@@ -1,53 +1,53 @@
-import { Component, OnInit, OnDestroy, ChangeDetectorRef } from '@angular/core';
-import { LocationService } from './../../services/location.service';
+import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { AppState } from './../../store/appstate';
-import { TrackPoint } from './../../shared/trackpoint';
 import { Observable, Subscription } from 'rxjs';
+import { LocationService } from './../../services/location.service';
+import { TrackPoint } from './../../shared/trackpoint';
+import { AppState } from './../../store/appstate';
 import { TracklogActions } from './../../store/tracklog.reducer';
 
 @Component({
     moduleId: module.id,
     selector: 'homepage',
+    styleUrls: ['homepage.component.css'],
     templateUrl: 'homepage.component.html',
-    styleUrls: ['homepage.component.css']
 })
 export class HomepageComponent implements OnInit, OnDestroy {
 
     public btnText: string = 'start';
     public tracklog$: Observable<TrackPoint[]>;
-    private tracklog$Sub: Subscription;
-
     public tracklog: TrackPoint[] = [];
+
     private isRunning: boolean;
     private isRunning$Sub: Subscription;
+    private tracklog$Sub: Subscription;
 
     constructor(private locationService: LocationService, private store: Store<AppState>, private ref: ChangeDetectorRef) {
 
     }
 
-    ngOnInit() {
+    public ngOnInit() {
 
-        this.tracklog$ = <Observable<TrackPoint[]>>this.store.select('tracklog');
+        this.tracklog$ = <Observable<TrackPoint[]>> this.store.select('tracklog');
         this.tracklog$Sub = this.tracklog$
-            .subscribe(track => {
+            .subscribe((track) => {
                 this.tracklog = track.reverse();
                 this.ref.detectChanges();
             });
 
         this.isRunning$Sub = this.locationService.isRunning$
-            .subscribe(running => {
+            .subscribe((running) => {
                 this.onRunningChanged(running);
             });
 
     }
 
-    ngOnDestroy() {
+    public ngOnDestroy() {
         this.tracklog$Sub.unsubscribe();
         this.isRunning$Sub.unsubscribe();
     }
 
-    start(): void {
+    public start(): void {
         if (!this.isRunning) {
             this.locationService.startLocationReadings();
         }
@@ -56,10 +56,10 @@ export class HomepageComponent implements OnInit, OnDestroy {
         }
     }
 
-    resetTracklog() {
+    public resetTracklog() {
         this.store.dispatch({
+            payload: null,
             type: TracklogActions.RESET,
-            payload: null
         });
     }
 

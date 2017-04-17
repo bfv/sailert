@@ -1,23 +1,24 @@
 import { Component, OnInit } from '@angular/core';
-import { AppSettings } from './../../shared/appsettings';
-import { Observable, Subscription } from 'rxjs';
-import { Store } from '@ngrx/store';
-import { AppState } from './../../store/appstate';
-import { SettingsService } from './../../services/settings.service';
-import * as Toast from 'nativescript-toast';
-import { OptionsPageSettings } from './../options/opionspagesettings';
-import { OptionsettingsService } from './../../pages/options/optionsetting.service';
-
 import { Router } from '@angular/router';
-import { RouterExtensions } from "nativescript-angular/router";
-import { SpeedUnit, CoordinateStyle } from './../../shared/types';
+
+import { Store } from '@ngrx/store';
+import { RouterExtensions } from 'nativescript-angular/router';
+import * as Toast from 'nativescript-toast';
+import { Observable, Subscription } from 'rxjs';
+
+import { OptionsettingsService } from './../../pages/options/optionsetting.service';
+import { SettingsService } from './../../services/settings.service';
+import { AppSettings } from './../../shared/appsettings';
 import { CoordinateDisplayStyle, SpeedUnitsDisplayStyle } from './../../shared/constants';
+import { CoordinateStyle, SpeedUnit } from './../../shared/types';
+import { AppState } from './../../store/appstate';
+import { OptionsPageSettings } from './../options/opionspagesettings';
 
 @Component({
     moduleId: module.id,
     selector: 'settingspage',
+    styleUrls: ['settingspage.component.css'],
     templateUrl: 'settingspage.component.html',
-    styleUrls: ['settingspage.component.css']
 })
 export class SettingspageComponent implements OnInit {
 
@@ -30,12 +31,13 @@ export class SettingspageComponent implements OnInit {
     private useSelectedIndex: boolean;
     private selectedOption$: Observable<string>;
 
-    constructor(private store: Store<AppState>, private settingsService: SettingsService, private routerExtensions: RouterExtensions, private optionsService: OptionsettingsService) { }
+    constructor(private store: Store<AppState>, private settingsService: SettingsService, private routerExtensions: RouterExtensions,
+                private optionsService: OptionsettingsService) { }
 
-    ngOnInit() {
+    public ngOnInit() {
 
-        let settings$ = <Observable<AppSettings>>this.store.select('settings');
-        this.settings$Sub = settings$.subscribe(storeSettings => {
+        const settings$ = <Observable<AppSettings>> this.store.select('settings');
+        this.settings$Sub = settings$.subscribe((storeSettings) => {
             this.settings = Object.assign({}, storeSettings);
         });
 
@@ -44,7 +46,7 @@ export class SettingspageComponent implements OnInit {
 
     }
 
-    save() {
+    public save() {
 
         this.settingsService.save(this.settings);
 
@@ -56,7 +58,7 @@ export class SettingspageComponent implements OnInit {
         }
     }
 
-    openOptionsPage(optionsPageName: string) {
+    public openOptionsPage(optionsPageName: string) {
 
         let options: OptionsPageSettings;
 
@@ -68,11 +70,11 @@ export class SettingspageComponent implements OnInit {
             switch (optionsPageName) {
 
                 case 'coordinatestyle':
-                    this.settings.coordinateStyle = <CoordinateStyle>newValue;
+                    this.settings.coordinateStyle = <CoordinateStyle> newValue;
                     break;
 
                 case 'speedunits':
-                    this.settings.speedUnits = <SpeedUnit>newValue;
+                    this.settings.speedUnits = <SpeedUnit> newValue;
                     break;
             }
 
@@ -81,10 +83,10 @@ export class SettingspageComponent implements OnInit {
 
         this.routerExtensions.navigate(['/settingsoptions'], {
             transition: {
-                name: "slide",
+                curve: 'linear',
                 duration: 150,
-                curve: "linear"
-            }
+                name: 'slide',
+            },
         });
     }
 
@@ -96,25 +98,25 @@ export class SettingspageComponent implements OnInit {
 
             case 'coordinatestyle':
                 options = {
+                    currentValue: this.settings.coordinateStyle,
                     title: 'Coordinate Style',
                     values: [
                         { key: 'degrees', value: 'ddd.ddddd' + '\u00B0' },
                         { key: 'minutes', value: 'ddd\u00B0 mm.mmm\'' },
-                        { key: 'seconds', value: 'ddd\u00B0 mm\' ss.s"' }
+                        { key: 'seconds', value: 'ddd\u00B0 mm\' ss.s"' },
                     ],
-                    currentValue: this.settings.coordinateStyle
                 };
                 break;
 
             case 'speedunits':
                 options = {
+                    currentValue: this.settings.speedUnits,
                     title: 'Speed units',
                     values: [
                         { key: 'kt', value: SpeedUnitsDisplayStyle.kt },
                         { key: 'kmh', value: SpeedUnitsDisplayStyle.kmh },
-                        { key: 'ms', value: SpeedUnitsDisplayStyle.ms }
+                        { key: 'ms', value: SpeedUnitsDisplayStyle.ms },
                     ],
-                    currentValue: this.settings.speedUnits
                 };
                 break;
         }
