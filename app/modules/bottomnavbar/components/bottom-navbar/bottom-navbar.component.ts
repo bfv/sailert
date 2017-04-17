@@ -15,6 +15,8 @@ export class BottomNavbarComponent implements OnInit, AfterViewInit, OnDestroy {
     @ContentChildren(BottomNavitemComponent) contentItems: QueryList<BottomNavitemComponent>;
     navItems: BottomNavitemComponent[] = [];
 
+    private currentSelectedIndex: number;
+
     constructor(private page: Page, private router: Router) { }
 
     ngOnInit() { }
@@ -51,8 +53,20 @@ export class BottomNavbarComponent implements OnInit, AfterViewInit, OnDestroy {
     }
 
     public selectNavitem(selectedIndex: number) {
+
+        selectedIndex = selectedIndex % this.contentItems.length;
+
         for (let item of this.navItems) {
             item.setSelected(item.id == selectedIndex);
         }
+        this.currentSelectedIndex = selectedIndex;
+    }
+
+    public nextItem() {
+        this.navItems[(this.currentSelectedIndex + 1) % this.contentItems.length].navigate();
+    }
+
+    public prevItem() {
+        this.navItems[(this.currentSelectedIndex + this.contentItems.length - 1) % this.contentItems.length].navigate();
     }
 }

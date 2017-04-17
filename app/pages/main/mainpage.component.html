@@ -3,12 +3,12 @@
         <label class="fa fa-actionbar " text="{{'fa-share-alt' | fonticon}}  "></label>
     </ActionItem>
 </ActionBar>
-<GridLayout rows="*,auto" cols="*">
+<GridLayout rows="*,auto" cols="*" (swipe)="onSwipe($event)">
     <StackLayout row="0">
         <router-outlet></router-outlet>
     </StackLayout>
     <StackLayout row="1">
-        <bottom-navbar>
+        <bottom-navbar #navbar>
             <bottom-navitem text="Home" icon="fa-home" route="/main"></bottom-navitem>
             <bottom-navitem text="Map" icon="fa-map-o" route="/main/map"></bottom-navitem>
             <bottom-navitem text="Waypoints" icon="fa-map-pin" route="/main/waypoints"></bottom-navitem>
