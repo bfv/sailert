@@ -1,33 +1,35 @@
-import { Component, OnInit, ViewChildren, QueryList, AfterViewInit, ContentChildren, OnDestroy } from '@angular/core';
+import { AfterViewInit, Component, ContentChildren, OnDestroy, OnInit, QueryList, ViewChildren } from '@angular/core';
+import { Router } from '@angular/router';
 import { Page } from 'ui/page';
 import { BottomNavitemComponent } from './../bottom-navitem/bottom-navitem.component';
-import { Router } from '@angular/router';
 
 @Component({
     moduleId: module.id,
     selector: 'bottom-navbar',
+    styleUrls: ['bottom-navbar.component.css'],
     templateUrl: 'bottom-navbar.component.html',
-    styleUrls: ['bottom-navbar.component.css']
 })
 export class BottomNavbarComponent implements OnInit, AfterViewInit, OnDestroy {
 
-    // @ViewChildren decorator doesn't work when the first child is ng-content
-    @ContentChildren(BottomNavitemComponent) contentItems: QueryList<BottomNavitemComponent>;
-    navItems: BottomNavitemComponent[] = [];
+    public navItems: BottomNavitemComponent[] = [];
 
+    // @ViewChildren decorator doesn't work when the first child is ng-content
+    @ContentChildren(BottomNavitemComponent) private contentItems: QueryList<BottomNavitemComponent>;
     private currentSelectedIndex: number;
 
     constructor(private page: Page, private router: Router) { }
 
-    ngOnInit() { }
+    public ngOnInit() {
+        // empty
+    }
 
-    ngOnDestroy() {
-        for (let item of this.navItems) {
+    public ngOnDestroy() {
+        for (const item of this.navItems) {
             item.onItemSelected.unsubscribe();
         }
     }
 
-    ngAfterViewInit() {
+    public ngAfterViewInit() {
 
         let initialSelected: number = 0;
 
@@ -43,8 +45,8 @@ export class BottomNavbarComponent implements OnInit, AfterViewInit, OnDestroy {
             item.setSiblingCount(this.contentItems.length);
 
             this.navItems.push(item);
-            item.onItemSelected.subscribe(id => {
-                this.selectNavitem(id);
+            item.onItemSelected.subscribe((itemId) => {
+                this.selectNavitem(itemId);
             });
         });
 
@@ -56,7 +58,7 @@ export class BottomNavbarComponent implements OnInit, AfterViewInit, OnDestroy {
 
         selectedIndex = selectedIndex % this.contentItems.length;
 
-        for (let item of this.navItems) {
+        for (const item of this.navItems) {
             item.setSelected(item.id == selectedIndex);
         }
         this.currentSelectedIndex = selectedIndex;
