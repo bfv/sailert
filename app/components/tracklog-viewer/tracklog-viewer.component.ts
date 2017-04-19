@@ -1,22 +1,24 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { TrackPoint } from './../../shared/trackpoint';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Default,
     inputs: ['tracklog'],
     moduleId: module.id,
     selector: 'tracklog-viewer',
-    changeDetection: ChangeDetectionStrategy.Default,
+    styleUrls: ['tracklog-viewer.component.css'],
     templateUrl: 'tracklog-viewer.component.html',
-    styleUrls: ['tracklog-viewer.component.css']
 })
 export class TracklogViewerComponent implements OnInit {
 
     public tracklog: TrackPoint[];
 
-    constructor() { }
+    constructor() {
+        // empty
+    }
 
-    ngOnInit() {
-
+    public ngOnInit() {
+        // empty
     }
 
 }

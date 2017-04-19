@@ -37,7 +37,7 @@ export class SettingspageComponent implements OnInit {
     public ngOnInit() {
 
         const settings$ = <Observable<AppSettings>> this.store.select('settings');
-        this.settings$Sub = settings$.subscribe((storeSettings) => {
+        this.settings$Sub = settings$.subscribe(storeSettings => {
             this.settings = Object.assign({}, storeSettings);
         });
 
@@ -65,7 +65,7 @@ export class SettingspageComponent implements OnInit {
         options = this.getOptions(optionsPageName);
 
         this.selectedOption$ = this.optionsService.setOptionSettings(options);
-        this.selectedOption$.subscribe((newValue) => {
+        this.selectedOption$.subscribe(newValue => {
 
             switch (optionsPageName) {
 

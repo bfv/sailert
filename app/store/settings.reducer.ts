@@ -1,11 +1,11 @@
-import { AppSettings } from './../shared/appsettings';
 import { Action } from '@ngrx/store';
+import { AppSettings } from './../shared/appsettings';
 import { SpeedUnit } from './../shared/types';
 
 export class SettingsActions {
-    static SET_SPEEDUNITS: string = '[settings] set_speedunits';
-    static SET_COORDINATESTYLE: string = '[settings] set_coordinatestyle';
-    static SET_ALL: string = '[settings] set_all';
+    public static SET_SPEEDUNITS: string = '[settings] set_speedunits';
+    public static SET_COORDINATESTYLE: string = '[settings] set_coordinatestyle';
+    public static SET_ALL: string = '[settings] set_all';
 }
 
 export function settingsReducer(state: AppSettings = { speedUnits: 'kt', coordinateStyle: 'minutes' }, action: Action) {
@@ -14,12 +14,12 @@ export function settingsReducer(state: AppSettings = { speedUnits: 'kt', coordin
 
         case SettingsActions.SET_SPEEDUNITS:
             return Object.assign({}, state, {
-                speedUnits: action.payload
+                speedUnits: action.payload,
             });
 
         case SettingsActions.SET_COORDINATESTYLE:
             return Object.assign({}, state, {
-                coordinateStyle: action.payload
+                coordinateStyle: action.payload,
             });
 
         case SettingsActions.SET_ALL:

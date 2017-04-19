@@ -2,7 +2,7 @@ import { Action } from '@ngrx/store';
 import { Position } from './../shared/position';
 
 export class PositionActions {
-    static SET: string = '[position] set';
+    public static SET: string = '[position] set';
 }
 
 export function positionReducer(state: Position = { latitude: 0, longitude: 0 }, action: Action) {
@@ -16,4 +16,3 @@ export function positionReducer(state: Position = { latitude: 0, longitude: 0 },
             return state;
     }
 }
-

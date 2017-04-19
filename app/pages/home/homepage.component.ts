@@ -30,13 +30,13 @@ export class HomepageComponent implements OnInit, OnDestroy {
 
         this.tracklog$ = <Observable<TrackPoint[]>> this.store.select('tracklog');
         this.tracklog$Sub = this.tracklog$
-            .subscribe((track) => {
+            .subscribe(track => {
                 this.tracklog = track.reverse();
                 this.ref.detectChanges();
             });
 
         this.isRunning$Sub = this.locationService.isRunning$
-            .subscribe((running) => {
+            .subscribe(running => {
                 this.onRunningChanged(running);
             });
 

@@ -1,7 +1,6 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { AppState } from './../../store/appstate';
-import { ChangeDetectorRef } from '@angular/core';
 
 import { Observable, Subscription } from 'rxjs';
 import { Position } from './../../shared/position';
@@ -9,8 +8,8 @@ import { Position } from './../../shared/position';
 @Component({
     moduleId: module.id,
     selector: 'position',
-    templateUrl: 'position.component.html',
     styleUrls: ['../geo.css', 'position.component.css'],
+    templateUrl: 'position.component.html',
 })
 export class PositionComponent implements OnInit, OnDestroy {
 
@@ -20,17 +19,17 @@ export class PositionComponent implements OnInit, OnDestroy {
 
     constructor(private store: Store<AppState>, private ref: ChangeDetectorRef) { }
 
-    ngOnInit() {
-        let position$ = <Observable<Position>>this.store.select('position');
+    public ngOnInit() {
+        const position$ = <Observable<Position>> this.store.select('position');
         this.position$Sub = position$
             .subscribe(location => {
-                this.latitude = location.latitude
+                this.latitude = location.latitude;
                 this.longitude = location.longitude;
                 this.ref.detectChanges();
             });
     }
 
-    ngOnDestroy() {
+    public ngOnDestroy() {
         this.position$Sub.unsubscribe();
     }
 }

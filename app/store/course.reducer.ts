@@ -1,8 +1,7 @@
 import { Action } from '@ngrx/store';
 
-
 export class CourseActions {
-    static SET: string = '[course] set';
+    public static SET: string = '[course] set';
 }
 
 export function courseReducer(state: number = 0, action: Action) {
@@ -16,4 +15,3 @@ export function courseReducer(state: number = 0, action: Action) {
             return state;
     }
 }
-

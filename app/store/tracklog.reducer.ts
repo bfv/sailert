@@ -2,8 +2,8 @@ import { Action } from '@ngrx/store';
 import { TrackPoint } from './../shared/trackpoint';
 
 export class TracklogActions {
-    static ADD: string = '[tracklog] add';
-    static RESET: string = '[tracklog] reset';
+    public static ADD: string = '[tracklog] add';
+    public static RESET: string = '[tracklog] reset';
 }
 
 export function tracklogReducer(state: TrackPoint[] = [], action: Action) {

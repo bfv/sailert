@@ -1,10 +1,5 @@
 export class GeoPoint {
 
-    constructor(latitude: number, longitude: number) {
-        this.latitude = latitude;
-        this.longitude = longitude;
-    }
-
     get latitude(): number {
         return (this.latrad / Math.PI) * 180;
     }
@@ -22,7 +17,13 @@ export class GeoPoint {
     public latrad: number;
     public lonrad: number;
 
-    toString(): string {
-        return 'lat: ' + this.latitude.toFixed(7) + ' (' + this.latrad.toFixed(7) + 'rad), lon: ' + this.longitude.toFixed(7) + ' (' + this.lonrad.toFixed(7) + 'rad)';
+    constructor(latitude: number, longitude: number) {
+        this.latitude = latitude;
+        this.longitude = longitude;
+    }
+
+    public toString(): string {
+        return 'lat: ' + this.latitude.toFixed(7) + ' (' + this.latrad.toFixed(7) + 'rad), lon: ' +
+            this.longitude.toFixed(7) + ' (' + this.lonrad.toFixed(7) + 'rad)';
     }
 }

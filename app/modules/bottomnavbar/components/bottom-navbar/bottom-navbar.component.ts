@@ -45,7 +45,7 @@ export class BottomNavbarComponent implements OnInit, AfterViewInit, OnDestroy {
             item.setSiblingCount(this.contentItems.length);
 
             this.navItems.push(item);
-            item.onItemSelected.subscribe((itemId) => {
+            item.onItemSelected.subscribe(itemId => {
                 this.selectNavitem(itemId);
             });
         });

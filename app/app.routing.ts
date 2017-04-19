@@ -1,14 +1,15 @@
-import { Routes, RouterModule } from '@angular/router';
 import { ModuleWithProviders } from '@angular/core';
-import { NativeScriptRouterModule } from "nativescript-angular/router";
+import { RouterModule, Routes  } from '@angular/router';
+import { NativeScriptRouterModule } from 'nativescript-angular/router';
 
-import { MainpageComponent } from './pages/main/mainpage.component';
 import { HomepageComponent } from './pages/home/homepage.component';
+import { MainpageComponent } from './pages/main/mainpage.component';
 import { MappageComponent } from './pages/map/mappage.component';
-import { WaypointpageComponent } from './pages/waypoints/waypointspage.components';
-import { SettingspageComponent } from './pages/settings/settingspage.component';
 import { OptionspageComponent } from './pages/options/optionspage.component';
+import { SettingspageComponent } from './pages/settings/settingspage.component';
+import { WaypointpageComponent } from './pages/waypoints/waypointspage.components';
 
+/* tslint:disable:object-literal-sort-keys */
 const routes: Routes = [
     { path: '', redirectTo: '/main', pathMatch: 'full' },
     {
@@ -19,9 +20,9 @@ const routes: Routes = [
             { path: 'map', component: MappageComponent },
             { path: 'waypoints', component: WaypointpageComponent },
             { path: 'settings', component: SettingspageComponent },
-        ]
+        ],
     },
-    { path: 'settingsoptions', component: OptionspageComponent }
+    { path: 'settingsoptions', component: OptionspageComponent },
 ];
 
 export const appRoutingProviders: any[] = [

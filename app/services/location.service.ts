@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
+import { BehaviorSubject , Observable, Subject } from 'rxjs';
+
 import { AppState } from './../store/appstate';
-import { Subject, Observable, BehaviorSubject } from 'rxjs';
-import { SpeedActions } from './../store/speed.reducer';
 import { CourseActions } from './../store/course.reducer';
 import { PositionActions } from './../store/position.reducer';
+import { SpeedActions } from './../store/speed.reducer';
 import { TracklogActions } from './../store/tracklog.reducer';
 
 import * as geolocation from 'nativescript-geolocation';
@@ -16,10 +17,10 @@ import { TrackPoint } from './../shared/trackpoint';
 @Injectable()
 export class LocationService {
 
+    public isRunning$: Subject<boolean>;
+
     private watchId: number = -1;
     private location$: Subject<Location>;
-
-    public isRunning$: Subject<boolean>;
 
     constructor(private store: Store<AppState>) {
 
@@ -43,7 +44,7 @@ export class LocationService {
         this.isRunning$ = new BehaviorSubject(false);
     }
 
-    startLocationReadings() {
+    public startLocationReadings() {
 
         // if there's an active watchId do not create another watch
         if (this.watchId > 0) {
@@ -53,13 +54,12 @@ export class LocationService {
         // turn watchLocation into location$ Obeservable
         this.watchId = geolocation.watchLocation(
             location => {
-
                 this.location$.next({
+                    course: location.direction,
                     latitude: location.latitude,
                     longitude: location.longitude,
                     speed: location.speed,
-                    course: location.direction,
-                    time: location.timestamp
+                    time: location.timestamp,
                 });
             },
             error => {
@@ -68,14 +68,14 @@ export class LocationService {
             {
                 desiredAccuracy: Accuracy.high,
                 minimumUpdateTime: 1000,
-                timeout: 10 * 1000
-            }
+                timeout: 10 * 1000,
+            },
         );
 
         this.isRunning$.next(true);
     }
 
-    stopLocationReadings() {
+    public stopLocationReadings() {
 
         if (this.watchId > 0) {
             geolocation.clearWatch(this.watchId);
@@ -86,64 +86,63 @@ export class LocationService {
         this.isRunning$.next(false);
     }
 
-    updateLocationData(location: Location) {
+    public updateLocationData(location: Location) {
 
         this.store.dispatch({
+            payload: location.speed,
             type: SpeedActions.SET,
-            payload: location.speed
         });
 
         this.store.dispatch({
+            payload: location.course,
             type: CourseActions.SET,
-            payload: location.course
         });
 
         this.store.dispatch({
+            payload: this.getPosition(location),
             type: PositionActions.SET,
-            payload: this.getPosition(location)
         });
 
     }
 
-    updateTracklog(location) {
+    public updateTracklog(location) {
 
         this.store.dispatch({
-            type: TracklogActions.ADD,
-            payload: <TrackPoint>{
+            payload: <TrackPoint> {
                 position: this.getPosition(location),
-                time: new Date(Date.now())
-            }
+                time: new Date(Date.now()),
+            },
+            type: TracklogActions.ADD,
+        });
+    }
+
+    public resetLocationData() {
+        this.store.dispatch({
+            payload: 0,
+            type: SpeedActions.SET,
         });
 
+        this.store.dispatch({
+            payload: 0,
+            type: CourseActions.SET,
+        });
+
+        this.store.dispatch({
+            payload: {
+                latitude: 0,
+                longitude: 0,
+            },
+            type: PositionActions.SET,
+        });
     }
 
     private getPosition(location): Position {
 
-        let position: Position = {
+        const position: Position = {
             latitude: location.latitude,
-            longitude: location.longitude
+            longitude: location.longitude,
         };
 
         return position;
-    }
-
-    resetLocationData() {
-        this.store.dispatch({
-            type: SpeedActions.SET,
-            payload: 0
-        });
-
-        this.store.dispatch({
-            type: CourseActions.SET,
-            payload: 0
-        });
-
-        this.store.dispatch({
-            type: PositionActions.SET,
-            payload: {
-                latitude: 0,
-                longitude: 0
-            }
-        });
     }
 }

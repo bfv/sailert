@@ -13,7 +13,6 @@ export class OptionsettingsService {
         // empty
     }
 
-
     public setOptionSettings(options: OptionsPageSettings): Subject<string> {
         this.optionPageSettings = options;
         this.optionSubject = new Subject();
@@ -24,4 +23,3 @@ export class OptionsettingsService {
         this.optionSubject.next(newValue);
     }
 }
-

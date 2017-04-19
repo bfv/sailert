@@ -1,10 +1,10 @@
 
 import { GeoPoint } from '../shared/geopoint';
 
-describe("Geolib", () => {
+describe('Geolib', () => {
 
-    it("conversion deg->rad", () => {
-        let geoPoint = new GeoPoint(0, 90);
+    it('conversion deg->rad', () => {
+        const geoPoint = new GeoPoint(0, 90);
         expect(geoPoint.lonrad).toBeCloseTo(Math.PI * 0.5);
     });
 

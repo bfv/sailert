@@ -1,23 +1,22 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
-
 @Pipe({ name: 'latitudedegrees' })
 export class LatitudeDegrees implements PipeTransform {
 
-    transform(degrees: number, type: string): string {
+    public transform(degrees: number, type: string): string {
 
         type = setDefaults(type);
 
-        let hemisphere = (type.substr(0, 1) == 'h');
+        const hemisphere = (type.substr(0, 1) == 'h');
         if (hemisphere) {
             type = type.substr(1);
         }
 
         let precision = getDefaultPrecision(type);
 
-        let colonPos = type.indexOf(':');
+        const colonPos = type.indexOf(':');
         if (colonPos > 0) {
-            precision = parseInt(type.substr(colonPos + 1));
+            precision = parseInt(type.substr(colonPos + 1), 10);
             type = type.substr(0, colonPos);
         }
 
@@ -37,23 +36,24 @@ export class LatitudeDegrees implements PipeTransform {
 
 }
 
+/* tslint:disable:max-classes-per-file*/
 @Pipe({ name: 'longitudedegrees' })
 export class LongitudeDegreesPipe implements PipeTransform {
 
-    transform(degrees: number, type: string): string {
+    public transform(degrees: number, type: string): string {
 
         type = setDefaults(type);
 
-        let hemisphere = (type.substr(0, 1) == 'h');
+        const hemisphere = (type.substr(0, 1) == 'h');
         if (hemisphere) {
             type = type.substr(1);
         }
 
         let precision = getDefaultPrecision(type);
 
-        let colonPos = type.indexOf(':');
+        const colonPos = type.indexOf(':');
         if (colonPos > 0) {
-            precision = parseInt(type.substr(colonPos + 1));
+            precision = parseInt(type.substr(colonPos + 1), 10);
             type = type.substr(0, colonPos);
         }
 
@@ -97,7 +97,6 @@ function convert(degrees: number, type: string, precision: number): string {
     return converted;
 }
 
-
 function convertDeg(degrees: number, precision: number): string {
 
     let converted: string;
@@ -107,11 +106,12 @@ function convertDeg(degrees: number, precision: number): string {
     return converted + '\u00B0';
 }
 
-
 function convertMin(degrees: number, precision: number): string {
 
     let converted: string;
-    let deg, min: number;
+    let deg: number;
+
+    let min: number;
 
     deg = degrees >= 0.0 ? Math.floor(degrees) : Math.ceil(degrees);
     min = Math.abs((degrees - deg) * 60);
@@ -121,11 +121,12 @@ function convertMin(degrees: number, precision: number): string {
     return converted;
 }
 
-
 function convertSec(degrees: number, precision: number): string {
 
     let converted: string;
-    let deg, min, sec: number;
+    let deg: number;
+    let min: number;
+    let sec: number;
 
     deg = degrees >= 0.0 ? Math.floor(degrees) : Math.ceil(degrees);
     min = Math.abs((degrees - deg) * 60);
@@ -135,7 +136,6 @@ function convertSec(degrees: number, precision: number): string {
 
     return converted;
 }
-
 
 function getDefaultPrecision(type: string): number {
 

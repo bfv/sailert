@@ -3,8 +3,8 @@ import { SettingsService } from './services/settings.service';
 
 @Component({
     selector: 'my-app',
+    styleUrls: ['app.component.css'],
     templateUrl: 'app.component.html',
-    styleUrls: ['app.component.css']
 })
 export class AppComponent implements OnInit {
 
@@ -14,8 +14,8 @@ export class AppComponent implements OnInit {
         // initialize the SettingsService a.s.a.p.
     }
 
-    ngOnInit() {
-
+    public ngOnInit() {
+        // empty
     }
 
 }
