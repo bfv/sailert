@@ -23,7 +23,7 @@ export class MainpageComponent implements OnInit {
     }
 
     public onSwipe(args: SwipeGestureEventData) {
-        console.log('Swipe Direction: ' + args.direction);
+
         if (args.direction == SwipeDirection.left) {
             this.navbar.nextItem();
         }
